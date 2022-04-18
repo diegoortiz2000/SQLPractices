@@ -1,0 +1,17 @@
+Lo primero que hacemos es crear una tabla, con todas las columnas d aun archivo que importaremos después 
+
+Después importamos la información de un CSV usando copy, indicamos el formato y el header
+
+Checamos los datos importados y hacemos algunos queries 
+
+Posteriormente creamos la tabla de salarios
+
+Importamos la información del CSV de salarios únicamente a 3 columnas de la tabla (town, supervisor, salary)
+
+Importamos únicamente algunas filas usando una query.
+
+Hacemos una tabla temporal para añadir valores default a la tabla, después hacemos un import con la información e insertamos la información de la tabla temporal, por ultimo eliminamos la tabla temporal con DROP
+
+Hacemos un export de la información de los counties se usa el copy pero en vez de from se usa el to
+
+Por ultimo hacemos el export de los resultados de una query 
