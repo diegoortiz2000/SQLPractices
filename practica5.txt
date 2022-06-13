@@ -1,0 +1,85 @@
+Primary key
+unique/not null
+
+
+
+
+Foreing key
+must exist in the original table
+
+
+-- As a column constraint
+CREATE TABLE natural_key_example (
+    license_id text CONSTRAINT license_key PRIMARY KEY,
+    first_name text,
+    last_name text
+);
+
+-- Drop the table before trying again
+DROP TABLE natural_key_example;
+
+
+Check constraint to put a condition
+CONSTRAINT check_salary_not_below_zero CHECK (salary >= 0)
+
+
+-- Listing 8-8: Examples of CHECK constraints
+
+CREATE TABLE check_constraint_example (
+    user_id bigint GENERATED ALWAYS AS IDENTITY,
+    user_role text,
+    salary numeric(10,2),
+    CONSTRAINT user_id_key PRIMARY KEY (user_id),
+    CONSTRAINT check_role_in_list CHECK (user_role IN('Admin', 'Staff')),
+    CONSTRAINT check_salary_not_below_zero CHECK (salary >= 0)
+);
+
+-- Both of these will fail:
+INSERT INTO check_constraint_example (user_role)
+VALUES ('admin');
+
+INSERT INTO check_constraint_example (salary)
+VALUES (-10000);
+
+
+
+UNIQUE
+value in the column must be unique
+
+
+CREATE TABLE unique_constraint_example (
+    contact_id bigint GENERATED ALWAYS AS IDENTITY,
+    first_name text,
+    last_name text,
+    email text,
+    CONSTRAINT contact_id_key PRIMARY KEY (contact_id),
+    CONSTRAINT email_unique UNIQUE (email)
+);
+
+INSERT INTO unique_constraint_example (first_name, last_name, email)
+VALUES ('Samantha', 'Lee', 'slee@example.org');
+
+INSERT INTO unique_constraint_example (first_name, last_name, email)
+VALUES ('Betty', 'Diaz', 'bdiaz@example.org');
+
+INSERT INTO unique_constraint_example (first_name, last_name, email)
+VALUES ('Sasha', 'Lee', 'slee@example.org');
+
+
+NOT NULL
+The value must exist and to add this constraint we do directly when creating the column
+last_name text NOT NULL,
+
+
+-- Listing 8-10: A NOT NULL constraint example
+
+CREATE TABLE not_null_example (
+    student_id bigint GENERATED ALWAYS AS IDENTITY,
+    first_name text NOT NULL,
+    last_name text NOT NULL,
+    CONSTRAINT student_id_key PRIMARY KEY (student_id)
+);
+
+-- This will fail:
+INSERT INTO not_null_example (first_name, last_name)
+VALUES ('Sting', NULL);
